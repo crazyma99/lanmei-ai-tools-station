@@ -1,0 +1,11 @@
+ .fusion-tool-page .arco-card-body {
+  overflow: hidden;
+}
+
+.fusion-tool-page .arco-image-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
