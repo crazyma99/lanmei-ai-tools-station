@@ -40,10 +40,9 @@ const FusionToolPage: React.FC = () => {
   const [fgPreviewUrl, setFgPreviewUrl] = useState<string | null>(null);
   const [bgPreviewUrl, setBgPreviewUrl] = useState<string | null>(null);
 
-  const base = import.meta.env.VITE_API_BASE_URL || '';
-
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
   const api = axios.create({
-    baseURL: base,
+    baseURL: baseUrl,
   });
 
   const handleFgUpload = async (options: RequestOptions) => {
@@ -136,7 +135,7 @@ const FusionToolPage: React.FC = () => {
       Message.warning('文件不存在');
       return;
     }
-    const fullUrl = url.startsWith('http') ? url : `${base}${url}`;
+    const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
     window.open(fullUrl, '_blank');
   };
 
@@ -368,7 +367,7 @@ const FusionToolPage: React.FC = () => {
                     <ArcoImage
                       src={(() => {
                         const url = result.files.watermark_url || result.files.jpg_url;
-                        return url.startsWith('http') ? url : `${base}${url}`;
+                        return url.startsWith('http') ? url : `${baseUrl}${url}`;
                       })()}
                       alt="叠图结果"
                       style={{

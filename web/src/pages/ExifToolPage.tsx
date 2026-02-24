@@ -52,8 +52,9 @@ const ExifToolPage: React.FC = () => {
     useState<ExifUploadResponse | null>(null);
   const [resultPreviewVisible, setResultPreviewVisible] = useState(false);
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
   const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || '',
+    baseURL: baseUrl,
   });
 
   const activeItem =
@@ -197,8 +198,7 @@ const ExifToolPage: React.FC = () => {
 
   const handleDownload = () => {
     if (!activeItem) return;
-    const base = import.meta.env.VITE_API_BASE_URL || '';
-    window.open(`${base}/api/exif/download/${activeItem.id}`, '_blank');
+    window.open(`${baseUrl}/api/exif/download/${activeItem.id}`, '_blank');
   };
 
   const handleBatchDownload = async () => {
@@ -234,16 +234,13 @@ const ExifToolPage: React.FC = () => {
     setItems([]);
   };
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
-
   const handleDeepCleanToggle = (v: boolean) => {
     setDeepClean(v);
     setClearAigc(v);
   };
 
   const handleDownloadById = (id: string) => {
-    const base = import.meta.env.VITE_API_BASE_URL || '';
-    window.open(`${base}/api/exif/download/${id}`, '_blank');
+    window.open(`${baseUrl}/api/exif/download/${id}`, '_blank');
   };
 
   const flattenExif = (exif: Record<string, unknown>) => {
