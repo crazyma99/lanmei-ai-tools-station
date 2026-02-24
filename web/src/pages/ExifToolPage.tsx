@@ -197,7 +197,7 @@ const ExifToolPage: React.FC = () => {
 
   const handleDownload = () => {
     if (!activeItem) return;
-    const base = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+    const base = import.meta.env.VITE_API_BASE_URL || '';
     window.open(`${base}/api/exif/download/${activeItem.id}`, '_blank');
   };
 
@@ -234,7 +234,7 @@ const ExifToolPage: React.FC = () => {
     setItems([]);
   };
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
 
   const handleDeepCleanToggle = (v: boolean) => {
     setDeepClean(v);
@@ -242,7 +242,7 @@ const ExifToolPage: React.FC = () => {
   };
 
   const handleDownloadById = (id: string) => {
-    const base = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+    const base = import.meta.env.VITE_API_BASE_URL || '';
     window.open(`${base}/api/exif/download/${id}`, '_blank');
   };
 
