@@ -49,9 +49,9 @@ npm run dev
     ```bash
     chmod +x start_all.sh
     ```
-3.  运行一键启动脚本：
+3. 运行一键启动脚本：
     ```bash
-    ./start_all.sh
+    bash start_all.sh
     ```
 #### 部署特性：
 *   **全自动**: 自动创建 `.venv` 并安装前后端依赖。

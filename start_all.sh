@@ -38,7 +38,7 @@ setup_backend() {
     fi
 
     # Check if python3 is available
-    if ! command -v python3 &> /dev/null; then
+    if ! command -v python3 > /dev/null 2>&1; then
         echo "Error: python3 is not installed."
         exit 1
     fi
@@ -59,14 +59,15 @@ setup_backend() {
     # Install dependencies
     if [ -f "$REQUIREMENTS" ]; then
         echo "Installing/Verifying backend dependencies from $REQUIREMENTS..."
-        $VENV_PIP install -r "$REQUIREMENTS"
+        # Use a more modern and PEP 503 compliant mirror to avoid HTML5 parsing issues
+        $VENV_PIP install -r "$REQUIREMENTS" -i https://pypi.tuna.tsinghua.edu.cn/simple
     else
         echo "Error: $REQUIREMENTS not found."
         exit 1
     fi
     
     # Verify installation
-    if ! $VENV_PYTHON -c "import fastapi; import uvicorn; import cv2; import numpy; import onnxruntime" &> /dev/null; then
+    if ! $VENV_PYTHON -c "import fastapi; import uvicorn; import cv2; import numpy; import onnxruntime" > /dev/null 2>&1; then
         echo "Error: Backend dependencies verification failed."
         exit 1
     fi
@@ -79,7 +80,7 @@ setup_frontend() {
     cd "$PROJECT_ROOT/web" || exit 1
 
     # Check if npm is available
-    if ! command -v npm &> /dev/null; then
+    if ! command -v npm > /dev/null 2>&1; then
         echo "Error: npm is not installed."
         exit 1
     fi
