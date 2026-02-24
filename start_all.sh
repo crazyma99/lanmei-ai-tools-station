@@ -143,7 +143,14 @@ echo "Press Ctrl+C to stop all services."
 echo "=================================================="
 
 # 4. Daemon / Guard Loop
-trap "kill $BACKEND_PID $FRONTEND_PID; exit" SIGINT SIGTERM
+# Use numeric signals for better compatibility with different shells (INT=2, TERM=15)
+cleanup() {
+    echo "Stopping services..."
+    kill $BACKEND_PID $FRONTEND_PID 2>/dev/null
+    exit
+}
+
+trap cleanup 2 15
 
 while true; do
     # Check Backend
