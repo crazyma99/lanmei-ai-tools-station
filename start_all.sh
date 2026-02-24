@@ -146,11 +146,14 @@ echo "=================================================="
 # Use numeric signals for better compatibility with different shells (INT=2, TERM=15)
 cleanup() {
     echo "Stopping services..."
-    kill $BACKEND_PID $FRONTEND_PID 2>/dev/null
-    exit
+    # Kill the processes if they are still running
+    [ -n "$BACKEND_PID" ] && kill "$BACKEND_PID" 2>/dev/null
+    [ -n "$FRONTEND_PID" ] && kill "$FRONTEND_PID" 2>/dev/null
+    exit 0
 }
 
-trap cleanup 2 15
+# POSIX compliant trap: trap 'command' SIGNAL_NUMBER
+trap 'cleanup' 2 15
 
 while true; do
     # Check Backend
